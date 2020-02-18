@@ -71,7 +71,7 @@ const buscarPet = query => {
 	const petsParaProcurar = pets.filter((pet) => {
 		pet.nome.toLocaleLowerCase() === query.toLocaleLowerCase()
 	});
-
+	//
 	return petsParaProcurar;
 };
 
