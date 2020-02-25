@@ -12,15 +12,7 @@ const server = http.createServer((req, res) => {
 
 	switch (rota) {
 
-	case "/pets":
-		const pets = petshop.listarPets();
-
-		pets.length 
-				? res.write(pets) 
-				: res.write("Nenhum pet cadastrado :(");
-		break;
-
-	case "/pets/add":
+	case "/add":
 		let novoPet = queryString;
 
 		if (petshop.adicionarPet(novoPet)) {
@@ -31,11 +23,11 @@ const server = http.createServer((req, res) => {
 		}
 		break;
 
-	case "/pets/buscar":
+	case "/buscar":
 		let petsEncontrados = petshop.buscarPet(queryString.nome);
 
 		if (petsEncontrados.length > 0) {
-			res.write(`Encontramos ${petsEncontrados.length} pets com o nome ${queryString.nome}`)
+			res.write(`Encontramos ${petsEncontrados.length} pet(s) com o nome ${queryString.nome}`)
 		} else {
 			res.write("Ops, não encontramos nenhum pet com esse nome!");
 		}
@@ -43,6 +35,13 @@ const server = http.createServer((req, res) => {
 
 	default:
 		res.write("** Bem vindos ao Petshop **");
+
+		const pets = petshop.listarPets();
+
+		pets.length > 0
+				? res.write(pets) 
+				: res.write("Nenhum pet cadastrado :(");
+		break;
 	}
 	res.end();
 }).listen(3000, "localhost", () => {

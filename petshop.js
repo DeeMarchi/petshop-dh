@@ -44,15 +44,6 @@ let pets = [
 		vacinado: true,
 		servicos: ["banho"]
 	},
-	{
-		nome: "Ada",
-	},
-	{
-		nome: "Ada",
-	},
-	{
-		nome: "Ada",
-	},
 ];
 
 const listarPets = () => {
@@ -69,7 +60,7 @@ const listarPets = () => {
 
 const buscarPet = query => {
 	const petsParaProcurar = pets.filter((pet) => {
-		pet.nome.toLocaleLowerCase() === query.toLocaleLowerCase()
+		return pet.nome.toUpperCase() === query.toUpperCase();
 	});
 	//
 	return petsParaProcurar;
