@@ -1,0 +1,1 @@
+?nome=testando&tipo=cao&raca=labrador&idade=8&genero=M&vacinado=true

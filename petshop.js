@@ -89,21 +89,33 @@ const buscarPet = query => {
 	const petsParaProcurar = pets.filter((pet) => {
 		return pet.nome.toUpperCase() === query.toUpperCase();
 	});
-	//
 	return petsParaProcurar;
 };
 
-const validarPet = novoPet => {
-	const propriedades = Object.keys(pets);
+const temProp = (obj, listaDeProps) => {
+	let propExiste = false;
 
+	for (const prop of listaDeProps) {
+		propExiste = obj.hasOwnProperty(prop);
+		if (!propExiste) { break; }
+	}
 
+	return propExiste;
+};
 
+const validarPet = pet => {
+	const propsParaValidar = ["nome", "tipo", "raca", "idade", "genero", "vacinado",];
 
+	return temProp(pet, propsParaValidar);
 };
 
 const adicionarPet = novoPet => {
-
-	return pets.push(novoPet);
+	if (validarPet(novoPet)) {
+		pets.push(novoPet);
+		return true;
+	} else {
+		return false;
+	}
 };
 
 module.exports = {listarPets, adicionarPet, buscarPet};

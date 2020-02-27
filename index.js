@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
 	switch (rota) {
 
 	case "/add":
-		let novoPet = queryString;
+		let novoPet = JSON.parse(JSON.stringify(queryString));
 
 		if (petshop.adicionarPet(novoPet)) {
 			res.write(`<p>${novoPet.nome} foi cadastrado com sucesso!</p>`);
