@@ -71,17 +71,19 @@ const tratarPropPet = (pet, prop) => {
 };
 
 const listarPets = () => {
-	let conteudo = "<ul>";
+	let conteudo = "";
 
-	for (const pet of pets) {
-		conteudo += "<li>"
-		for (prop in pet) {
-			conteudo += tratarPropPet(pet, prop);
+	if (pets.length > 0) {
+		conteudo += "<ul>";
+		for (const pet of pets) {
+			conteudo += "<li>"
+			for (prop in pet) {
+				conteudo += tratarPropPet(pet, prop);
+			}
+			conteudo += "</li>"
 		}
-		conteudo += "</li>"
+		conteudo += "</ul>";
 	}
-
-	conteudo += "</ul>";
 	return conteudo;
 };
 
@@ -109,6 +111,15 @@ const validarPet = pet => {
 	return temProp(pet, propsParaValidar);
 };
 
+const vacinarPet = pet => {
+	if (!pet.vacinado) {
+		pet.vacinado = true;
+		return true;
+	} else {
+		return false;
+	}
+};
+
 const adicionarPet = novoPet => {
 	if (validarPet(novoPet)) {
 		pets.push(novoPet);
@@ -118,4 +129,4 @@ const adicionarPet = novoPet => {
 	}
 };
 
-module.exports = {listarPets, adicionarPet, buscarPet};
+module.exports = {listarPets, adicionarPet, buscarPet, vacinarPet};

@@ -25,25 +25,41 @@ const server = http.createServer((req, res) => {
 
 	case "/buscar":
 		if (!queryString.nome) {
-			res.write("<p>Por favor informe o nome do pet que deseja procurar!</p>")
+			res.write("<p>Por favor informe o nome do pet que deseja procurar!</p>");
 			break;
 		}
-
 		let petsEncontrados = petshop.buscarPet(queryString.nome);
 
 		if (petsEncontrados.length > 0) {
-			res.write(`<p>Encontramos ${petsEncontrados.length} pet(s) com o nome ${queryString.nome}</p>`)
+			res.write(`<p>Encontramos ${petsEncontrados.length} pet(s) com o nome ${queryString.nome}</p>`);
 		} else {
 			res.write("<p>Ops, não encontramos nenhum pet com esse nome!</p>");
 		}
 		break;
 
+	case "/vacinar":
+		if (!queryString.nome) {
+			res.write("<p>Por favor informe o nome do pet que deseja vacinar!</p>");
+			break;
+		}
+		let petParaVacinar = petshop.buscarPet(queryString.nome);
+
+		if (petParaVacinar) {
+			if (petshop.vacinarPet(petParaVacinar[0])) {
+				res.write(`<p>O pet ${queryString.nome} foi vacinado!</p>`);
+			} else {
+				res.write(`<p>O pet ${queryString.nome} já ESTÁ vacinado</p>`);
+			}
+		} else {
+			res.write("pet não encontrado");
+		}
+		break;
+
 	default:
 		res.write("<h1>** Bem vindos ao Petshop **</h1>");
-		res.write("<h2>** Lista de Pets **</h2>")
+		res.write("<h2>** Lista de Pets **</h2>");
 
 		const pets = petshop.listarPets();
-
 		pets.length > 0
 				? res.write(pets) 
 				: res.write("<p>Nenhum pet cadastrado :(</p>");
