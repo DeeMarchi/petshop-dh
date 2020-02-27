@@ -40,13 +40,13 @@ const server = http.createServer((req, res) => {
 
 	default:
 		res.write("<h1>** Bem vindos ao Petshop **</h1>");
+		res.write("<h2>** Lista de Pets **</h2>")
 
 		const pets = petshop.listarPets();
 
 		pets.length > 0
 				? res.write(pets) 
 				: res.write("<p>Nenhum pet cadastrado :(</p>");
-		break;
 	}
 	res.end();
 }).listen(3000, "localhost", () => {

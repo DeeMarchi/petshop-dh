@@ -21,7 +21,7 @@ let pets = [
 		nome: "Scooby Doo",
 		tipo: "cão",
 		raca: "Dogue Alemão",
-		idade: 51,
+		idade: 9,
 		genero: "M",
 		vacinado: false,
 		servicos: ["banho", "tosa"]
@@ -46,15 +46,42 @@ let pets = [
 	},
 ];
 
+const tratarPropPet = (pet, prop) => {
+	let conteudo = '';
+
+	switch (prop) {
+
+	case "vacinado":
+		conteudo += `<p>${prop}: ${(pet[prop] ? "sim" : "não")}</p>`;
+		break;
+
+	case "genero":
+		conteudo += `<p>${prop}: ${(pet[prop] === "M" ? "macho" : "fêmea")}</p>`;
+		break;
+
+	case "idade":
+		conteudo += `<p>${prop}: ${pet[prop]} anos</p>`;
+		break;
+
+	default:
+		conteudo += `<p>${prop}: ${pet[prop]}</p>`;
+	}
+
+	return conteudo;
+};
+
 const listarPets = () => {
-	let conteudo = "";
+	let conteudo = "<ul>";
 
 	for (const pet of pets) {
-		conteudo += `
-		--------------
-		${pet.nome}
-		--------------`;
+		conteudo += "<li>"
+		for (prop in pet) {
+			conteudo += tratarPropPet(pet, prop);
+		}
+		conteudo += "</li>"
 	}
+
+	conteudo += "</ul>";
 	return conteudo;
 };
 
